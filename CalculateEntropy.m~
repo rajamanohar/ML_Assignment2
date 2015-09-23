@@ -1,0 +1,18 @@
+function [Entropy] = CalculateEntropy(Cell,EntrpCIndeX,startIndex,endIndex)
+     startIndex=startIndex+1;
+   
+    entropyMat = Cell(startIndex:endIndex,EntrpCIndeX); 
+    entropyMat=sortrows(entropyMat,1);
+    
+  
+%     [idEnt,iaEnt,icEnt] = unique(entropyMat,'last','legacy');
+%    
+%    
+%     Entropy=0;
+%    for idx=1:length(idEnt)
+%       p= (nnz(icEnt==idx)/length(icEnt));
+%        Entropy=Entropy-p*log2(p);
+%    end
+    
+  
+end
