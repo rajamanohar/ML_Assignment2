@@ -1,5 +1,5 @@
 load('iris.dat.mat');
-
+AttributeName=['SL','SW','PL','PW'];
 % Change data into two partitions either setosa or not setosa 
 Cell=num2cell(Data);
 
@@ -8,15 +8,22 @@ Cell=num2cell(Data);
 TrainData=sortrows(TrainData,5);
 C=TrainData;
 
+% Binning of Dataset on each attribute
 [C,GradeMat]=EqualFrqncyPartn(TrainData,1,5,1);
 [C,GradeMat]=EqualFrqncyPartn(C,2,5,2);
 [C,GradeMat]=EqualFrqncyPartn(C,3,5,3);
 [C,GradeMat]=EqualFrqncyPartn(C,4,5,4);
 
- CalculateEntropy(Cell,5,1,endIndex)
+% Calculating Entropy for whole tree
+startIndex=0;
+[Entropy]=CalculateEntropy(C,5,startIndex,length(C));
+ attributesLength=4;
  
- 
-InfoA=WeightedEntropy(C,5);
+%  Calculating weighted entropy for each attribute 
+ for idx=1:attributesLength
+   Entropies(idx,1)=WeightedEntropy(C,idx);
+ end
 
+[M,I] = min(Entropies);
 
 

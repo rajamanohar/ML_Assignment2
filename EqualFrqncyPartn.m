@@ -16,7 +16,7 @@ MAT = discretize(B,edges,'IncludedEdge','right');
 Cell=sortrows(Cell,partnCIdx);
 % % %inserting grades into Cell Array
  for index=1:length(MAT)
-    Cell{index,newCIdx}=MAT(index,:);    
+    Cell{index,newCIdx}=strcat('B',mat2str(MAT(index,:)));    
  end
  
  
