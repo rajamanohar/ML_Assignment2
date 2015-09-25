@@ -24,6 +24,7 @@ startIndex=0;
  for idx=1:attributesLength
    Entropies(idx,1)=WeightedEntropy(C,idx);
  end
+%  Finding min and index values
 [M,I] = min(Entropies);
 
 TreeCell{1,1}=AttributeName{I,1};
