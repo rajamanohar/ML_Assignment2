@@ -4,10 +4,3 @@ Attributes=cellstr(char('SL','SW','PL','PW'));
 Cell=num2cell(Data);
 [TrainData, ValidationData, TestData]=DatasetPartition(Data,Cell);
 dtr=ConstructTree(TrainData,Attributes);
-
- 
-
- 
- 
-
-
