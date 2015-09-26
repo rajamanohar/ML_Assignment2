@@ -1,16 +1,14 @@
-load('iris.dat.mat');
-Attributes=cellstr(char('SL','SW','PL','PW'));
-% Change data into two partitions either setosa or not setosa 
-Cell=num2cell(Data);
-[TrainData, ValidationData, TestData]=DatasetPartition(Data,Cell);
+function [dtr]=ConstructDecisionTree(TrainData,Attributes)
+
+dtr = java.util.HashMap;
+SampleData=TrainData;
+% Root Node construction 
+
+NodeValue=determineNodeValue(SampleData,TrainData,Attributes,dtr,0);
+
+dtr=createOrUpdateTree(dtr,AttributeName(I),AttributeName(I),0);
 
 
-map = java.util.HashMap;
-
-map=ConstructTree(TrainData,);
- determineNodeValue(SampleData,TrainData,Attributes,map,0);
- 
- 
  C=sortrows(C,I);
  TrainData=sortrows(TrainData,I);
  GradeMat = C(:, I); 
@@ -34,10 +32,8 @@ if length(binClassDist)==1
 end
 
 
-map=createOrUpdateTree(map,classLabel,AttributeName(I),binMaxes(1,1));
+dtr=createOrUpdateTree(dtr,classLabel,AttributeName(I),binMaxes(1,1));
     
     
- 
- 
 
-
+end

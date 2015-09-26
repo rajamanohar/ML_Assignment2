@@ -12,11 +12,10 @@ edges(1,1)=B(1,1);
 % K= histcounts(B,edges);
 MAT = discretize(B,edges,'IncludedEdge','right');
 
- 
 Cell=sortrows(Cell,partnCIdx);
 % % %inserting grades into Cell Array
  for index=1:length(MAT)
-    Cell{index,newCIdx}=strcat('B',mat2str(MAT(index,:)));    
+    Cell{index,newCIdx}=MAT(index,:);    
  end
  
  
