@@ -15,15 +15,15 @@ for idx=1:length(Attributes)
     Attributelist.add(Attributes{idx,1});
 end
 
-  [rows cols]=size(ValidationData);
+[rows cols]=size(ValidationData);
 
- for idx=1:rows
-     tempCell=ValidationData(idx,1:4);
-     tempCell=cell2mat(tempCell);
-     for i=1:length(tempCell)
-        dataList.add(tempCell(1,i)); 
-     end
-     
-     [classLabel] = traverseTree(dtr, Attributelist, dataList);
- end
+for idx=1:rows
+    tempCell=ValidationData(idx,1:4);
+    tempCell=cell2mat(tempCell);
+    for i=1:length(tempCell)
+        dataList.add(tempCell(1,i));
+    end
+    
+    [classLabel] = traverseTree(dtr, Attributelist, dataList);
+end
 
