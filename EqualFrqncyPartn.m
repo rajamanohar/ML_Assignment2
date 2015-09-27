@@ -3,10 +3,14 @@ function [Cell,MAT] = EqualFrqncyPartn(Cell,partnCIdx,no_Partn,newCIdx)
 %no_partn( no. of partitions, orderGrade is ordered grading vector
 B=cell2mat(Cell(:,partnCIdx));
 B=sort(B);
-width=length(B)/no_Partn;
+width=ceil(length(B)/no_Partn);
 edges(1,1)=B(1,1);
 for i=1:no_Partn;
-    edges(1,1+i)=B(i*width,1);
+    startIndex=i*width;
+    if(startIndex > length(B))
+        startIndex=length(B);
+    end
+    edges(1,1+i)=B(startIndex,1);
 end
 
 % K= histcounts(B,edges);
