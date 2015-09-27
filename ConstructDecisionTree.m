@@ -8,7 +8,7 @@ SampleData=TrainData;
 dtr=createOrUpdateTree(dtr,NodeValue,NodeValue,0);
 
 [binMaxes,binEndIndexs]=FindBinMaxes(SampleData,NodeIdx,TrainData);
- ConstructChildNodes(dtr,NodeValue,binMaxes,binEndIndexs,SampleData);
+ ConstructChildNodes(dtr,NodeValue,binMaxes,binEndIndexs,SampleData,TrainData);
 
 
 
