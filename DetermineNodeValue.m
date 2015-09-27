@@ -3,6 +3,7 @@ function [SampleData,NodeValue,NodeIdx,Entropies]=DetermineNodeValue(SampleData,
 % Binning of Dataset on each attribute
 for idx=1:length(Attributes)
     [SampleData,GradeMat]=EqualFrqncyPartn(SampleData,idx,binsCount,idx);
+    TrainData=sortrows(TrainData,idx);
 end
 % Calculating Entropy for whole tree
 startIndex=0;
