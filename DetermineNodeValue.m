@@ -1,7 +1,7 @@
-function [NodeValue]=DetermineNodeValue(C,TrainData,Attributes, Map,NodeCondition)
+function [C,NodeValue,I,Entropies]=DetermineNodeValue(C,TrainData,Attributes, Map,NodeCondition)
 
 % Binning of Dataset on each attribute
-for idx=1:length(AttributeName)
+for idx=1:length(Attributes)
     [C,GradeMat]=EqualFrqncyPartn(C,idx,5,idx);
 end
 % Calculating Entropy for whole tree
@@ -17,7 +17,6 @@ end
 % Finding min and index values
  Entropies=Entropy-Entropies;
  [M,I] = min(Entropies);
- 
- NodeValue=AttributeName(I);
+ NodeValue=Attributes(I);
 
 end

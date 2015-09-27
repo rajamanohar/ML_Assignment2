@@ -4,35 +4,36 @@ dtr = java.util.HashMap;
 SampleData=TrainData;
 % Root Node construction 
 
-NodeValue=determineNodeValue(SampleData,TrainData,Attributes,dtr,0);
+[SampleData NodeValue NodeIdx Entropies]=DetermineNodeValue(SampleData,TrainData,Attributes,dtr,0)
+dtr=createOrUpdateTree(dtr,NodeValue,NodeValue,0);
 
-dtr=createOrUpdateTree(dtr,AttributeName(I),AttributeName(I),0);
-
-
- C=sortrows(C,I);
- TrainData=sortrows(TrainData,I);
- GradeMat = C(:, I); 
- GradeMat=cell2mat(GradeMat);
- GradeMat=sortrows(GradeMat);
- [distinct,ia,ic] = unique(GradeMat,'last','rows');
- binMaxes=TrainData(ia(:,1),I);
+binMaxes=FindBinMaxes(SampleData,NodeIdx,TrainData);
+  
+% ConstrcutChildNodes();
 %  check class labels data for each bin 
+
+for binIndex=1:length(binMaxes)
 startIndex=1;
-BinClasses=C(startIndex:ia(1,1),5);
+BinClasses=C(startIndex:ia(binIndex,1),5);
 BinClasses=cell2mat(BinClasses);
 BinClasses=sortrows(BinClasses);
 [binClassDist,binClassEnds,binClassVals] = unique(BinClasses,'last','rows');
+end
 
 if length(binClassDist)==1
     if binClassDist==1
         classLabel='SETOSA';
     elseif binClassDist==2
         classLabel='OTHERS';
+        
+        dtr=createOrUpdateTree(dtr,classLabel,NodeValue,binMaxes(NodeIdx,1));
     end
+else length(binClassDist)>1
+    
 end
 
 
-dtr=createOrUpdateTree(dtr,classLabel,AttributeName(I),binMaxes(1,1));
+
     
     
 
