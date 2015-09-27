@@ -1,7 +1,8 @@
 function [classLabel] = traverseTree(map, attrList, dataList)
 dataMap = java.util.HashMap;
 
-for i = 0 : attrList.size()
+for i = 0: attrList.size()-1
+    
     if(strcmp(attrList.get(i), 'PL') == 1)
         dataMap.put(attrList.get(i), dataList.get(i));
     elseif(strcmp(attrList.get(i), 'PW')==1)
