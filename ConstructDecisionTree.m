@@ -7,6 +7,7 @@ SampleData=TrainData;
 [SampleData NodeValue NodeIdx Entropies]=DetermineNodeValue(SampleData,TrainData,Attributes,dtr,0)
 dtr=createOrUpdateTree(dtr,NodeValue,NodeValue,0);
 
+<<<<<<< HEAD
 binMaxes=FindBinMaxes(SampleData,NodeIdx,TrainData);
   
 % ConstrcutChildNodes();
@@ -31,6 +32,12 @@ binMaxes=FindBinMaxes(SampleData,NodeIdx,TrainData);
 % else length(binClassDist)>1
 %     
 % end
+=======
+[binMaxes,binEndIndexs]=FindBinMaxes(SampleData,NodeIdx,TrainData);
+ ConstructChildNodes(dtr,NodeValue,binMaxes,binEndIndexs,SampleData);
+
+
+>>>>>>> develop
 
 
 

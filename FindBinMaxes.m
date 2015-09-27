@@ -1,7 +1,5 @@
 function [binMaxes binEndIndexs]=FindBinMaxes(SampleData,NodeIdx,TrainData)
 
-
- 
  NodeAttrClumnMat = SampleData(:, NodeIdx); 
  NodeAttrClumnMat=cell2mat(NodeAttrClumnMat);
  NodeAttrClumnMat=sortrows(NodeAttrClumnMat,1);
@@ -15,5 +13,8 @@ function [binMaxes binEndIndexs]=FindBinMaxes(SampleData,NodeIdx,TrainData)
  
  
   binMaxes=TrainAttrClumnMat(binEndIndexs(:,1),1);
+
+  
+  
   
 end
