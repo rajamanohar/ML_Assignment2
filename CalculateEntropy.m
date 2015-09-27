@@ -1,11 +1,11 @@
 function [Entropy] = CalculateEntropy(Cell,EntrpCIndeX,startIndex,endIndex)
 
-fprintf('length is \n');
-disp(length(Cell));
-disp(Cell);
-disp(EntrpCIndeX);
-disp(endIndex);
-disp(startIndex);
+% fprintf('length is \n');
+% disp(length(Cell));
+% disp(Cell);
+% disp(EntrpCIndeX);
+% disp(endIndex);
+% disp(startIndex);
 
 
 startIndex=startIndex+1;

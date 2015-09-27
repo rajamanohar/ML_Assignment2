@@ -1,8 +1,7 @@
 function [classLabel] = traverseTree(map, attrList, dataList)
 dataMap = java.util.HashMap;
 
-for i = 0: attrList.size()-1
-    
+for i = 0 : attrList.size()-1
     if(strcmp(attrList.get(i), 'PL') == 1)
         dataMap.put(attrList.get(i), dataList.get(i));
     elseif(strcmp(attrList.get(i), 'PW')==1)
@@ -14,11 +13,12 @@ for i = 0: attrList.size()-1
     end
 end
 
-rootNodeLabel = map.get(0).get(0);
+rootNodeLabel = map.get(1).get(0);
 tempLabel = rootNodeLabel;
 
-while(strcmp(tempLabel, 'SETOSA') == 0 && strcmp(tempLabel, 'OTHERS') == 0)
+while(strcmp(tempLabel, 'SETOSA') == 0 || strcmp(tempLabel, 'OTHERS') == 0)
     [nextNodeIndex,nextNodeLabel] = findNextNode(map, tempLabel, dataMap.get(tempLabel));
+    
     tempLabel = map.get(nextNodeIndex).get(0);
     break;
 end
