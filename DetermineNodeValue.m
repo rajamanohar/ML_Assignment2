@@ -19,6 +19,6 @@ end
 % Finding min and index values
 Entropies=Entropy-Entropies;
 [M,NodeIdx] = min(Entropies);
- NodeValue=Attributes(NodeIdx);
+NodeValue=Attributes(NodeIdx);
 
 end

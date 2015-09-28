@@ -5,23 +5,24 @@ dtr=[];
 
 SampleData=TrainData;
 % Root Node construction
-  % Entropy Column index should be the last column number,as it
-        % contains class labels
-   EntrpCIndeX=length(Attributes)+1;
-        
+% Entropy Column index should be the last column number,as it
+% contains class labels
+EntrpCIndeX=length(Attributes)+1;
+
 [SampleData NodeValue NodeIdx Entropies]=DetermineNodeValue(SampleData,...
-                                TrainData,Attributes,dtr,0,binsCount,EntrpCIndeX);
-dtr=createOrUpdateTree(dtr,NodeValue,NodeValue,0);
+    TrainData,Attributes,dtr,0,binsCount,EntrpCIndeX);
+dtr=createOrUpdateTree(dtr,NodeValue,NodeValue,0,0);
 
 [binMaxes,binEndIndexs]=FindBinMaxes(SampleData,NodeIdx,TrainData);
 
-% Removing root node name from the attributes list 
+% Removing root node name from the attributes list
 NewAttributes=Attributes;
 NewAttributes{NodeIdx,1}= [];
 NewAttributes(any(cellfun(@isempty,NewAttributes),2),:) = [];
-  
+
+parentIdx=1;
 ConstructChildNodes(dtr,NodeValue,NodeIdx,binMaxes,binEndIndexs,...
-                                        SampleData,TrainData,NewAttributes,binsCount);
+    SampleData,TrainData,NewAttributes,binsCount,parentIdx);
 
 
 end
