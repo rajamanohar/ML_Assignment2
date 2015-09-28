@@ -9,7 +9,7 @@ EntrpCIndeX=length(Attributes)+1;
 
 [SampleData NodeValue NodeIdx Entropies]=DetermineNodeValue(SampleData,...
     TrainData,Attributes,dtr,0,binsCount,EntrpCIndeX);
-dtr=createOrUpdateTree(dtr,NodeValue,NodeValue,0,0);
+dtr=createOrUpdateTree(dtr,NodeValue,NodeValue,0,1);
 
 [binMaxes,binEndIndexs]=FindBinMaxes(SampleData,NodeIdx,TrainData);
 
