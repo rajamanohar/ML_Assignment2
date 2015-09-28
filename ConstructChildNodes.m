@@ -1,6 +1,6 @@
 
-function [] = ConstructChildNodes(dtr,NodeValue,NodeIdx,binMaxes,...
-    binEndIndexs,SampleData,TrainData,NewAttributes,binsCount,parentIndex)
+function [parentIdx,index]= ConstructChildNodes(dtr,NodeValue,NodeIdx,binMaxes,...
+    binEndIndexs,SampleData,TrainData,NewAttributes,binsCount,parentIdx)
 
 %  check class labels data for each bin
 
@@ -27,7 +27,7 @@ for binIndex=1:length(binMaxes)
         elseif binClassDist(1,1)==2
             classLabel='OTHERS';
         end
-        [dtr,parentIndex]=createOrUpdateTree(dtr,classLabel,NodeValue,binMaxes(binIndex,1),parentIndex);
+        [dtr,index]=createOrUpdateTree(dtr,classLabel,NodeValue,binMaxes(binIndex,1),parentIdx);
         
     elseif length(binClassDist)>1
         
@@ -41,16 +41,15 @@ for binIndex=1:length(binMaxes)
         % contains class labels
         EntrpCIndeX=length(NewAttributes)+1;
         
-        [binSampleData ChildNodeValue ChildNodeIdx ChildEntropies]=DetermineNodeValue(...
+        [binSampleData,ChildNodeValue,ChildNodeIdx,ChildEntropies]=DetermineNodeValue(...
             binSampleData,binTrainData,NewAttributes,dtr,binMaxes(binIndex,1),...
             binsCount,EntrpCIndeX);
         
-        %         fprintf('Parentvalue \n');
-        %         disp(NodeValue);
-        %         fprintf('child value \n');
-        %         disp(ChildNodeValue);
-         [dtr,parentIndex]=createOrUpdateTree(dtr,ChildNodeValue,NodeValue,binMaxes(binIndex,1),parentIndex);
         
+        [dtr,index]=createOrUpdateTree(dtr,ChildNodeValue,...
+            NodeValue,binMaxes(binIndex,1),parentIdx);
+        
+        parentIdx=index;
         
         [childBinMaxes,ChildBinEndIndexs]=FindBinMaxes(binSampleData,...
             ChildNodeIdx,binTrainData);
@@ -60,11 +59,16 @@ for binIndex=1:length(binMaxes)
         NewChildAttributes(any(cellfun(@isempty,NewChildAttributes),2),:) = [];
         
         
-        if(length(binSampleData)>1)
-            ConstructChildNodes(dtr,ChildNodeValue,ChildNodeIdx,...
-                childBinMaxes,ChildBinEndIndexs,binSampleData,binTrainData,...
-                NewChildAttributes,binsCount,parentIndex);
-        end
+        
+        
+        [parentIdx,index]=ConstructChildNodes(dtr,ChildNodeValue,ChildNodeIdx,...
+            childBinMaxes,ChildBinEndIndexs,binSampleData,binTrainData,...
+            NewChildAttributes,binsCount,parentIdx);
+        
+        
+        parentIdx=dtr.get(parentIdx).get(3);
+        
+        
     end
     startIndex=binEndIndexs(binIndex,1)+1;
 end

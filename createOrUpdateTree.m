@@ -1,5 +1,5 @@
 %order in list: Node_Name, Parent_Name, Bin_Condition
-function [map,parentIndex]=createOrUpdateTree(map,node_name, parent_name, bin_condition,parentIndex)
+function [map,index]=createOrUpdateTree(map,node_name, parent_name, bin_condition,parentIndex)
 
 % disp(node_name);
 
@@ -12,14 +12,14 @@ disp(list);
 size = map.size();
 index = size + 1;
 
-
-  if(strcmp(node_name,'SETOSA')|| strcmp(node_name,'OTHERS'))
-     
-      map.put(index, list);
-         
-  else
-      map.put(index, list);
-      parentIndex=map.size();
-  end
+map.put(index, list);
+%   if(strcmp(node_name,'SETOSA')|| strcmp(node_name,'OTHERS'))
+%      
+%       map.put(index, list);
+%          
+%   else
+%       map.put(index, list);
+%      
+%   end
    
 end
