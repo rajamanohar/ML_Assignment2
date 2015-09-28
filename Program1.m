@@ -25,5 +25,6 @@ for idx=1:rows
     end
     
     [classLabel] = traverseTree(dtr, Attributelist, dataList);
+    disp(classLabel)
 end
 
