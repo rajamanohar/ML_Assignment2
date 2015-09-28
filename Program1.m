@@ -16,6 +16,12 @@ for idx=1:length(Attributes)
 end
 
   [rows cols]=size(ValidationData);
+  
+  %disp(dtr)
+  fprintf('Decision Tree>>>>');
+  for idx=0:dtr.size()
+    disp(dtr.get(idx));
+  end    
 
  for idx=1:rows
      tempCell=ValidationData(idx,1:4);
@@ -25,5 +31,6 @@ end
      end
      
      [classLabel] = traverseTree(dtr, Attributelist, dataList);
+     disp(classLabel)
  end
 

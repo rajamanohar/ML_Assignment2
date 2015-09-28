@@ -12,17 +12,13 @@ classdef DecTree
             obj.dectr=ConstructDecisionTree(obj.TrainData,c);
         end
         
-        
         function [dtr]=ConstructDecisionTree(TrainData,Attributes)
-            
             dtr = java.util.HashMap;
             SampleData=TrainData;
             % Root Node construction
             
             NodeValue=determineNodeValue(SampleData,TrainData,Attributes,dtr,0);
-            
             dtr=createOrUpdateTree(dtr,AttributeName(I),AttributeName(I),0);
-            
             
             C=sortrows(C,I);
             TrainData=sortrows(TrainData,I);
@@ -61,11 +57,11 @@ classdef DecTree
         end
         
         function [NodeValue]=DetermineNodeValue(C,TrainData,Attributes, Map,NodeCondition)
-            
             % Binning of Dataset on each attribute
             for idx=1:length(AttributeName)
                 [C,GradeMat]=EqualFrqncyPartn(C,idx,5,idx);
             end
+            
             % Calculating Entropy for whole tree
             startIndex=0;
             [Entropy]=CalculateEntropy(C,5,startIndex,length(C));
@@ -81,11 +77,9 @@ classdef DecTree
             [M,I] = min(Entropies);
             
             NodeValue=AttributeName(I);
-            
         end
         
         function [Entropy] = CalculateEntropy(Cell,EntrpCIndeX,startIndex,endIndex)
-            
             startIndex=startIndex+1;
             entropyMat = cell2mat(Cell(startIndex:endIndex,EntrpCIndeX));
             entropyMat=sortrows(entropyMat,1);
@@ -104,19 +98,16 @@ classdef DecTree
             GradeMat=sortrows(GradeMat);
             [C,ia,ic] = unique(GradeMat,'last','rows');
             
-            
             startIndex=0;
             InfoA=0;
             for idx=1:length(C)
                 InfoA=InfoA+(nnz(ic==idx)/length(ic))*CalculateEntropy(Cell,5,startIndex,ia(idx,1));
                 startIndex=ia(idx,1);
-                
             end
         end
         
         function [] = ConstructChildNodes(dtr,NodeValue,binMaxes,binEndIndexs,SampleData)
             %  check class labels data for each bin
-            
             for binIndex=1:length(binMaxes)
                 startIndex=1;
                 BinClasses=SampleData(startIndex:binEndIndexs(binIndex,1),5);
@@ -132,13 +123,8 @@ classdef DecTree
                     end
                     dtr=createOrUpdateTree(dtr,classLabel,NodeValue,binMaxes(binIndex,1));
                 else length(binClassDist)>1
-                    
-                    
-                    
                 end
-                
             end
-            
         end
         
         function [classLabel] = traverseTree(map, attrList, dataList)
@@ -187,21 +173,14 @@ classdef DecTree
             NodeAttrClumnMat=cell2mat(NodeAttrClumnMat);
             NodeAttrClumnMat=sortrows(NodeAttrClumnMat,1);
             
-            [distinct,binEndIndexs,ic] = unique(NodeAttrClumnMat,'last','rows');
-            
+            [distinct,binEndIndexs,ic] = unique(NodeAttrClumnMat,'last','rows');            
             
             TrainAttrClumnMat = TrainData(:, NodeIdx);
             TrainAttrClumnMat=cell2mat(TrainAttrClumnMat);
             TrainAttrClumnMat=sortrows(TrainAttrClumnMat);
             
-            
             binMaxes=TrainAttrClumnMat(binEndIndexs(:,1),1);
-            
-            
-            
-            
-        end
-        
+        end        
         
         function [TrainData, ValidationData, TestData]=DatasetPartition(Data,Cell)
             [rows,columns]=size(Data);
@@ -213,7 +192,6 @@ classdef DecTree
                     Cell{idx,5}=2;
                 end
             end
-            
             
             randIdx=randperm(rows);
             trainIdx=randIdx(1,1:105);
@@ -244,8 +222,6 @@ classdef DecTree
             for index=1:length(MAT)
                 Cell{index,newCIdx}=MAT(index,:);
             end
-            
-            
         end
     end
 end

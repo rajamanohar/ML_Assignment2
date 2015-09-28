@@ -26,15 +26,35 @@ end
 classLabel = tempLabel;
 end
 
-function [nextNodeIndex, nextNodeLabel] = findNextNode(map, parentNodeLabel, value)
+function [nextNodeIndex, nextNodeLabel] = findNextNode(map, parentNodeIndex, value)
 nextNodeIndex = 0;
 nextNodeLabel = '';
-for i = 1 : map.size()
-    nodeData = map.get(i);
-    if(strcmp(nodeData.get(1), parentNodeLabel) && nodeData.get(2) > value)
-        nextNodeLabel = nodeData.get(0);
-        nextNodeIndex = i;
-        break;
-    end
+childIndexList = java.util.ArrayList;
+% for i = 1 : map.size()
+%     nodeData = map.get(i);
+%     if(strcmp(nodeData.get(1), parentNodeLabel) && nodeData.get(2) > value)
+%         nextNodeLabel = nodeData.get(0);
+%         nextNodeIndex = i;
+%         break;
+%     end
+% end
+while(strcmp(nextNodeLabel, 'SETOSA') == 0 || strcmp(nextNodeLabel, 'OTHERS') == 0)
+    childIndexList=findChilds(map, parentNodeIndex);
+    for i = 1 : childIndexList.size()
+        if(map.get(childIndexList.get(i)).get(2) > value)
+            nextNodeIndex=i;
+            nextNodeLabel=map.get(childIndexList.get(i)).get(0);
+            break;
+        end    
+    end    
+end    
 end
+
+function [childIndexList] = findChilds(map, parentNodeIndex)
+    childIndexList = java.util.ArrayList;
+    for i = 1 : map.size()
+        if(map.get(i).get(1)==parentNodeIndex)
+         childIndexList.add(i);
+        end 
+    end
 end
