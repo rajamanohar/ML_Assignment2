@@ -1,6 +1,8 @@
 function [dtr]=ConstructDecisionTree(TrainData,Attributes,binsCount)
 
-dtr = java.util.HashMap;
+% dtr = java.util.HashMap;
+dtr=[];
+
 SampleData=TrainData;
 % Root Node construction
   % Entropy Column index should be the last column number,as it
