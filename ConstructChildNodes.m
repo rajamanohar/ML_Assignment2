@@ -1,6 +1,6 @@
 
 function [] = ConstructChildNodes(dtr,NodeValue,NodeIdx,binMaxes,...
-    binEndIndexs,SampleData,TrainData,NewAttributes,binsCount)
+    binEndIndexs,SampleData,TrainData,NewAttributes,binsCount,parentIndex)
 
 %  check class labels data for each bin
 
@@ -27,7 +27,7 @@ for binIndex=1:length(binMaxes)
         elseif binClassDist(1,1)==2
             classLabel='OTHERS';
         end
-        dtr=createOrUpdateTree(dtr,classLabel,NodeValue,binMaxes(binIndex,1));
+        [dtr,parentIndex]=createOrUpdateTree(dtr,classLabel,NodeValue,binMaxes(binIndex,1),parentIndex);
         
     elseif length(binClassDist)>1
         
@@ -49,7 +49,7 @@ for binIndex=1:length(binMaxes)
         %         disp(NodeValue);
         %         fprintf('child value \n');
         %         disp(ChildNodeValue);
-        dtr=createOrUpdateTree(dtr,ChildNodeValue,NodeValue,binMaxes(binIndex,1));
+         [dtr,parentIndex]=createOrUpdateTree(dtr,ChildNodeValue,NodeValue,binMaxes(binIndex,1),parentIndex);
         
         
         [childBinMaxes,ChildBinEndIndexs]=FindBinMaxes(binSampleData,...
@@ -63,7 +63,7 @@ for binIndex=1:length(binMaxes)
         if(length(binSampleData)>1)
             ConstructChildNodes(dtr,ChildNodeValue,ChildNodeIdx,...
                 childBinMaxes,ChildBinEndIndexs,binSampleData,binTrainData,...
-                NewChildAttributes,binsCount);
+                NewChildAttributes,binsCount,parentIndex);
         end
     end
     startIndex=binEndIndexs(binIndex,1)+1;

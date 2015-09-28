@@ -15,22 +15,16 @@ for idx=1:length(Attributes)
     Attributelist.add(Attributes{idx,1});
 end
 
-  [rows cols]=size(ValidationData);
-  
-  %disp(dtr)
-  fprintf('Decision Tree>>>>');
-  for idx=0:dtr.size()
-    disp(dtr.get(idx));
-  end    
+[rows cols]=size(ValidationData);
 
- for idx=1:rows
-     tempCell=ValidationData(idx,1:4);
-     tempCell=cell2mat(tempCell);
-     for i=1:length(tempCell)
-        dataList.add(tempCell(1,i)); 
-     end
-     
-     [classLabel] = traverseTree(dtr, Attributelist, dataList);
-     disp(classLabel)
- end
+for idx=1:rows
+    tempCell=ValidationData(idx,1:4);
+    tempCell=cell2mat(tempCell);
+    for i=1:length(tempCell)
+        dataList.add(tempCell(1,i));
+    end
+    
+    [classLabel] = traverseTree(dtr, Attributelist, dataList);
+    disp(classLabel)
+end
 
