@@ -9,7 +9,7 @@ EntrpCIndeX=length(Attributes)+1;
 
 [SampleData NodeValue NodeIdx Entropies]=DetermineNodeValue(SampleData,...
     TrainData,Attributes,dtr,0,binsCount,EntrpCIndeX);
-dtr=createOrUpdateTree(dtr,NodeValue,NodeValue,0);
+[dtr,parentIndex]=createOrUpdateTree(dtr,NodeValue,NodeValue,0,1);
 
 [binMaxes,binEndIndexs]=FindBinMaxes(SampleData,NodeIdx,TrainData);
 
@@ -19,7 +19,7 @@ NewAttributes{NodeIdx,1}= [];
 NewAttributes(any(cellfun(@isempty,NewAttributes),2),:) = [];
 
 ConstructChildNodes(dtr,NodeValue,NodeIdx,binMaxes,binEndIndexs,...
-    SampleData,TrainData,NewAttributes,binsCount);
+    SampleData,TrainData,NewAttributes,binsCount,parentIndex);
 
 
 end
