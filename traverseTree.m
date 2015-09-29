@@ -21,11 +21,12 @@ nextNodeLabel='';
 while(strcmp(nextNodeLabel, 'SETOSA') == 0 && strcmp(nextNodeLabel, 'OTHERS') == 0)
     [nextNodeIndex,nextNodeLabel] = findNextNode(map, index, dataMap.get(tempLabel));
     index = nextNodeIndex;
-    if(map.get(nextNodeIndex)==0)
-        tempLabel=rootNodeLabel;
-    else
-        tempLabel = map.get(nextNodeIndex).get(0);
-    end
+     if(nextNodeIndex==0)
+         nextNodeLabel='OTHERS';
+     else
+     tempLabel = map.get(nextNodeIndex).get(0);
+     end
+    
 end
 
 classLabel = nextNodeLabel;

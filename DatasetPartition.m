@@ -11,7 +11,7 @@ end
 
 randIdx=randperm(rows);
 trainIdx=randIdx(1,1:105);
-validationIdx=randIdx(1,106:127);
+validationIdx=randIdx(1,1:40);
 testIdx=randIdx(1,128:150);
 
 TrainData=Cell(trainIdx,:);
