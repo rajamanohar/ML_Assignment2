@@ -9,10 +9,11 @@ MinAvgMaxAcc=[];
 
 for binIndex=1:length(RepeatBinSizes)
     BinAccuracies=[];
-    for index=1:10
-        [TrainData, ValidationData, TestData]=DatasetPartition(Data,Cell);
+     [TrainData, ValidationData, TestData]=DatasetPartition(Data,Cell);
         dtr=ConstructDecisionTree(TrainData,Attributes,RepeatBinSizes(binIndex));
         
+    for index=1:10
+       
         
         % % Perform testing on decision tree with validation data
         Attributelist = java.util.ArrayList;
