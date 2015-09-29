@@ -8,6 +8,7 @@ MinAvgMaxAcc=[];
 
 
 for binIndex=1:length(RepeatBinSizes)
+   
     BinAccuracies=[];
      [TrainData, ValidationData, TestData]=DatasetPartition(Data,Cell);
         dtr=ConstructDecisionTree(TrainData,Attributes,RepeatBinSizes(binIndex));
@@ -23,6 +24,8 @@ for binIndex=1:length(RepeatBinSizes)
             Attributelist.add(Attributes{idx,1});
         end
         
+        [TrData, ValidationData, TstData]=DatasetPartition(Data,Cell);
+        
         [rows cols]=size(ValidationData);
         classLabels=[];
         actialClassLabels=ValidationData(:,5);
@@ -37,23 +40,24 @@ for binIndex=1:length(RepeatBinSizes)
             classLabel = traverseTree(dtr, Attributelist, dataList);
             
             if (strcmp(classLabel,'SETOSA')) && (actialClassLabels{idx,1}==1)
-                 classLabels{idx,1}=1;
+                 classLabels{1,idx}=1;
             elseif (strcmp(classLabel,'OTHERS')) && (actialClassLabels{idx,1}==2)
-                 classLabels{idx,1}=1;
+                 classLabels{1,idx}=1;
             else
-                 classLabels{idx,1}=0;
+                 classLabels{1,idx}=0;
             end
             
         end
         accurlabels=cell2mat(classLabels);
         accuracy=nnz(accurlabels==1)/length(accurlabels);
-        BinAccuracies{1,index}=accuracy;
-        
+        BinAccuracies{index,1}=accuracy;
+       
+    
+
     end
     BinAccuracymat=cell2mat(BinAccuracies);
-    
     MinAvgMaxAcc{binIndex,1}=min(BinAccuracymat);
-    MinAvgMaxAcc{binIndex,1}=mean(BinAccuracymat);
-    MinAvgMaxAcc{binIndex,1}=max(BinAccuracymat);
+    MinAvgMaxAcc{binIndex,2}=mean(BinAccuracymat);
+    MinAvgMaxAcc{binIndex,3}=max(BinAccuracymat);
 end
 disp(MinAvgMaxAcc);
